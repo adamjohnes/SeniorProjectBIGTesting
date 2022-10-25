@@ -45,7 +45,7 @@ public class Main
 						 "Unbilled Amount: $", "Underbilled Amount: $"};
 		String[] l_plus_e_Cats = {"Current Accounts Payable: $", "Retention Payable: $", "Overbilled Amount: $", "Taxes: $",
 								  "Loan Balances: $"};
-		int equity = 0, count = 0;
+		long equity = 0, count = 0;
 		try (PrintWriter writer = new PrintWriter(new File("rawDataAssets.txt")))
 		{
 			try (PrintWriter writer2 = new PrintWriter(new File("rawDataL+E.txt")))
@@ -75,7 +75,7 @@ public class Main
 
 					    **/
 
-						int randNum = rand.nextInt(500000000);
+						long randNum = rand.nextInt(700000000);
 						builder1.append(assetCats[j] + randNum + "\n");
 						if (j == 5)
 						{
@@ -109,9 +109,9 @@ public class Main
 
 	public static void readInData(String fileAssets, String fileLandE)
 	{
-		int constructionEquipment = 0, autos = 0, officeEquipment = 0, accumulatedDepreciation = 0, land = 0, cashOnHand = 0,
+		long constructionEquipment = 0, autos = 0, officeEquipment = 0, accumulatedDepreciation = 0, land = 0, cashOnHand = 0,
 			currentAccountsReceivable = 0, retentionReceivable = 0, unbilledAmount = 0, underbilledAmount = 0;
-		int equity = 0, currentAccountsPayable = 0, retentionPayable = 0, overbilledAmount = 0, taxes = 0, loanBalances = 0;
+		long equity = 0, currentAccountsPayable = 0, retentionPayable = 0, overbilledAmount = 0, taxes = 0, loanBalances = 0;
 		long totalAssets = 0, currentAssets = 0, currentLiabilities = 0, totalLiabilitiesAndEquity = 0;
 
 		int assetCount = 0, eqCount = 0;
@@ -127,46 +127,58 @@ public class Main
 			{
 				String line = readerAssets.nextLine();
 				line = line.substring(line.lastIndexOf("$") + 1);
+				long longLine = Long.parseLong(line);
+				//int intLine = Integer.parseInt(line);
 				switch (assetCount)
 				{
 					case 0:
-						constructionEquipment = Integer.parseInt(line);
+						//constructionEquipment = intLine;
+						constructionEquipment = longLine;
 						assetCount++;
 						break;
 					case 1:
-						autos = Integer.parseInt(line);
+						//autos = intLine;
+						autos = longLine;
 						assetCount++;
 						break;
 					case 2:
-						officeEquipment = Integer.parseInt(line);
+						//officeEquipment = intLine;
+						officeEquipment = longLine;
 						assetCount++;
 						break;
 					case 3:
-						accumulatedDepreciation = Integer.parseInt(line);
+						//accumulatedDepreciation = intLine;
+						accumulatedDepreciation = longLine;
 						assetCount++;
 						break;
 					case 4:
-						land = Integer.parseInt(line);
+						//land = intLine;
+						land = longLine;
 						assetCount++;
 						break;
 					case 5:
-						cashOnHand = Integer.parseInt(line);
+						//cashOnHand = intLine;
+						cashOnHand = longLine;
 						assetCount++;
 						break;
 					case 6:
-						currentAccountsReceivable = Integer.parseInt(line);
+						//currentAccountsReceivable = intLine;
+						currentAccountsReceivable = longLine;
 						assetCount++;
 						break;
 					case 7:
-						retentionReceivable = Integer.parseInt(line);
+						//retentionReceivable = intLine;
+						retentionReceivable = longLine;
 						assetCount++;
 						break;
 					case 8:
-						unbilledAmount = Integer.parseInt(line);
+						//unbilledAmount = intLine;
+						unbilledAmount = longLine;
 						assetCount++;
 						break;
 					case 9:
-						underbilledAmount = Integer.parseInt(line);
+						//underbilledAmount = intLine;
+						underbilledAmount = longLine;
 						currentAssets = cashOnHand + currentAccountsReceivable + retentionReceivable +
 												unbilledAmount + underbilledAmount;
 						totalAssets = currentAssets + constructionEquipment + autos + officeEquipment +
@@ -180,30 +192,37 @@ public class Main
 				{
 					String line2 = readerLplusE.nextLine();
 					line2 = line2.substring(line2.lastIndexOf("$") + 1);
+					long longLine2 = Long.parseLong(line2);
 					switch (eqCount)
 					{
 						case 0:
-							equity = Integer.parseInt(line2);
+							//equity = Integer.parseInt(line2);
+							equity = longLine2;
 							eqCount++;
 							break;
 						case 1:
-							currentAccountsPayable = Integer.parseInt(line2);
+							//currentAccountsPayable = Integer.parseInt(line2);
+							currentAccountsPayable = longLine2;
 							eqCount++;
 							break;
 						case 2:
-							retentionPayable = Integer.parseInt(line2);
+							//retentionPayable = Integer.parseInt(line2);
+							retentionPayable = longLine2;
 							eqCount++;
 							break;
 						case 3:
-							overbilledAmount = Integer.parseInt(line2);
+							//overbilledAmount = Integer.parseInt(line2);
+							overbilledAmount = longLine2;
 							eqCount++;
 							break;
 						case 4:
-							taxes = Integer.parseInt(line2);
+							//taxes = Integer.parseInt(line2);
+							taxes = longLine2;
 							eqCount++;
 							break;
 						case 5:
-							loanBalances = Integer.parseInt(line2);
+							//loanBalances = Integer.parseInt(line2);
+							loanBalances = longLine2;
 							eqCount = 0;
 							currentLiabilities = currentAccountsPayable + retentionPayable + overbilledAmount + taxes + loanBalances;
 							totalLiabilitiesAndEquity = currentLiabilities + equity;
